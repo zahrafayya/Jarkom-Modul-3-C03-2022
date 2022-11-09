@@ -38,6 +38,11 @@ subnet 10.11.3.0 netmask 255.255.255.0 {
     default-lease-time 600;
     max-lease-time 6900;
 }
+
+host Eden {
+    hardware ethernet 86:7b:07:02:46:04;
+    fixed-address 10.11.3.13;
+}
 ' > ~/shift3/dhcpd.conf
 
 cp ~/shift3/dhcpd.conf /etc/dhcp
