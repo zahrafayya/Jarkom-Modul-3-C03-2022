@@ -61,6 +61,31 @@ Loid dan Franky berencana menjadikan Eden sebagai server untuk pertukaran inform
 ## Soal 8
 ### Soal 8.1
 **Deskripsi:**
+Client hanya dapat mengakses internet diluar (selain) hari & jam kerja (senin-jumat 08.00 - 17.00) dan hari libur (dapat mengakses 24 jam penuh)
+
+**Pembahasan:**
+
+### Soal 8.2
+**Deskripsi:**
+Adapun pada hari dan jam kerja sesuai nomor (1), client hanya dapat mengakses domain loid-work.com dan franky-work.com (IP tujuan domain dibebaskan)
+
+**Pembahasan:**
+
+### Soal 8.3
+**Deskripsi:**
+Saat akses internet dibuka, client dilarang untuk mengakses web tanpa HTTPS. (Contoh web HTTP: http://example.com)
+
+**Pembahasan:**
+
+### Soal 8.4
+**Deskripsi:**
+Agar menghemat penggunaan, akses internet dibatasi dengan kecepatan maksimum 128 Kbps pada setiap host (Kbps = kilobit per second; lakukan pengecekan pada tiap host, ketika 2 host akses internet pada saat bersamaan, keduanya mendapatkan speed maksimal yaitu 128 Kbps)
+
+**Pembahasan:**
+
+### Soal 8.5
+**Deskripsi:**
+Setelah diterapkan, ternyata peraturan nomor (4) mengganggu produktifitas saat hari kerja, dengan demikian pembatasan kecepatan hanya diberlakukan untuk pengaksesan internet pada hari libur
 
 **Pembahasan:**
 
