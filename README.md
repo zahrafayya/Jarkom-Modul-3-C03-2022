@@ -30,13 +30,13 @@ Ostania dijadikan sebagai DHCP Relay
 
 ## Soal 3
 **Deskripsi:**
-Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.50 - [prefix IP].1.88 dan [prefix IP].1.120 - [prefix IP].1.155
+Client yang melalui Switch1 mendapatkan range IP dari 10.11.1.50 - 10.11.1.88 dan 10.11.1.120 - 10.11.1.155
 
 **Pembahasan:**
 
 ## Soal 4
 **Deskripsi:**
-Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.10 - [prefix IP].3.30 dan [prefix IP].3.60 - [prefix IP].3.85
+Client yang melalui Switch3 mendapatkan range IP dari 10.11.3.10 - 10.11.3.30 dan 10.11.3.60 - 10.11.3.85
 
 **Pembahasan:**
 
@@ -54,7 +54,7 @@ Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch1 
 
 ## Soal 7
 **Deskripsi:**
-Loid dan Franky berencana menjadikan Eden sebagai server untuk pertukaran informasi dengan alamat IP yang tetap dengan IP [prefix IP].3.13 
+Loid dan Franky berencana menjadikan Eden sebagai server untuk pertukaran informasi dengan alamat IP yang tetap dengan IP 10.11.3.13 
 
 **Pembahasan:**
 
