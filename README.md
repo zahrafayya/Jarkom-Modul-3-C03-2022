@@ -59,5 +59,9 @@ Loid dan Franky berencana menjadikan Eden sebagai server untuk pertukaran inform
 **Pembahasan:**
 
 ## Soal 8
+### Soal 8.1
+**Deskripsi:**
+
+**Pembahasan:**
 
 
