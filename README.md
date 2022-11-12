@@ -147,6 +147,16 @@ max-lease-time 6900;
 Loid dan Franky berencana menjadikan Eden sebagai server untuk pertukaran informasi dengan alamat IP yang tetap dengan IP 10.11.3.13 
 
 **Pembahasan:**
+Pertama, kita cari dahulu hwaddress Eden dengan command `ip a` dan diperoleh sebagai berikut  
+![jarkom1](https://user-images.githubusercontent.com/78243059/201463035-b3840d3d-dd86-4b6f-8bdc-7521c46abf37.png)
+
+Lalu, pada /etc/dhcp/dhcpd.conf, tambahkan konfigurasi di bawah ini 
+```
+host Eden {
+    hardware ethernet 72:91:d4:fa:19:93;  # hwaddress Eden
+    fixed-address 10.11.3.13;  # fixed address yang diinginkan
+}
+```
 
 ## Soal 8
 ### Soal 8.1
