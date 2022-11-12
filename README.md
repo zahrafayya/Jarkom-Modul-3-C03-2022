@@ -164,29 +164,141 @@ host Eden {
 Client hanya dapat mengakses internet diluar (selain) hari & jam kerja (senin-jumat 08.00 - 17.00) dan hari libur (dapat mengakses 24 jam penuh)
 
 **Pembahasan:**
+Sebelumnya, pastikan client menjalankan konfigurasi berkut untuk terhubung ke Berlint selaku proxy server.
+```
+export http_proxy="http://10.11.2.3:8080"
+```
+Pada Berlint, kita perlu mendefinisikan pengaturan waktu. Konfigurasinya bisa ditaruh di file `/etc/squid/acl.conf`.
+```
+acl WORKING_HOUR time MTWHF 08:00-17:00
+acl OUT_WORKING_HOUR_1 time MTWHF 00:00-08:00
+acl OUT_WORKING_HOUR_2 time MTWHF 17:00-24:00
+acl WEEKEND time AS 00:00-24:00
+```
+Pada /etc/squid/squid.conf, kita perlu mengaktifkan pengaturan waktu tersebut.
+```
+include /etc/squid/acl.conf
+
+http_port 8080
+visible_hostname Berlint
+
+http_access deny WORKING_HOUR
+
+http allow all
+```
+
 
 ### Soal 8.2
 **Deskripsi:**
 Adapun pada hari dan jam kerja sesuai nomor (1), client hanya dapat mengakses domain loid-work.com dan franky-work.com (IP tujuan domain dibebaskan)
 
 **Pembahasan:**
+Kita perlu mendefinisikan daftar domainnya dahulu. Konfigurasinya bisa ditaruh di file `/etc/squid/company-sites.acl` dan diisi
+```
+loid-work.com
+franky-work.com
+```
+Konfigurasi ini akan kita inisialisasi sebagi control list pada file `/etc/squid/company-sites.conf` dengan isinya sebagai berikut
+```
+acl COMPANY_SITES dstdomain "/etc/squid/company-sites.acl"
+```
+Setelah itu, kita harus mengaktifkannya pada /etc/squid/squid.conf sehingga menjadi berikut
+```
+http_access deny COMPANY_SITES WEEKEND
+http_access deny !COMPANY_SITES WORKING_HOUR
+```
+Dengan ini, request ke loid-work.com dan franky-work.com akan dilayani pada jam kerja. Kita perlu mengatur tujuan IP nya pada WISE selaku DNS Server. Pada /etc/bind/named.conf.local, kita tambahkan
+```
+zone "loid-work.com" {
+        type master;
+        file "/etc/bind/jarkom/loid-work.com";
+};
+
+zone "franky-work.com" {
+        type master;
+        file "/etc/bind/jarkom/franky-work.com";
+};
+```
+Lalu, pada buatlah file /etc/bind/jarkom/loid-work.com dan atur sebagai berikut
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     loid-work.com. root.loid-work.com. (
+                     2022100601         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      loid-work.com.
+@       IN      A       103.94.189.5;
+@       IN      AAAA    ::1
+```
+Atur juga untuk fanky-work.com pada file /etc/bind/jarkom/franky-work.com
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     franky-work.com. root.franky-work.com. (
+                     2022100601         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      franky-work.com.
+@       IN      A       216.239.38.120;
+@       IN      AAAA    ::1
+```
+IP dibebaskan sesuai soal. Restart bind9 dan domain akan diarahkan pada IP address yang kita berikan.
 
 ### Soal 8.3
 **Deskripsi:**
 Saat akses internet dibuka, client dilarang untuk mengakses web tanpa HTTPS. (Contoh web HTTP: http://example.com)
 
 **Pembahasan:**
+Kita perlu mendefinisikan protocol HTTPS. Konfigurasi ini bisa ditaruh pada file /etc/squid/ssl.conf dan diisi
+```
+acl SSL_PROTO proto https
+```
+Lalu, kita perlu mengaktifkan konfigurasi tersebut pada /etc/squid/squid.conf dengan menambahkan syntax di bawah ini pada bagian atas
+```
+include /etc/squid/ssl.conf
+http_access deny !SSL_PROTO
+```
+Dengan demikian, semua request denagn protocol bukan HTTPS akan ditolak.
 
 ### Soal 8.4
 **Deskripsi:**
 Agar menghemat penggunaan, akses internet dibatasi dengan kecepatan maksimum 128 Kbps pada setiap host (Kbps = kilobit per second; lakukan pengecekan pada tiap host, ketika 2 host akses internet pada saat bersamaan, keduanya mendapatkan speed maksimal yaitu 128 Kbps)
 
 **Pembahasan:**
+Definisikan pengaturan pembatasan bandwidth pada file /etc/squid/acl-bandwidth.conf
+```
+delay_pools 1
+delay_class 1 1
+delay_access 1 allow all
+delay_parameters 1 8000/16000
+```
+Lalu, aktifkan pada /etc/squid/squid.conf dengan menambahkan syntax tersebut
+```
+include /etc/squid/acl-bandwidth.conf
+```
 
 ### Soal 8.5
 **Deskripsi:**
 Setelah diterapkan, ternyata peraturan nomor (4) mengganggu produktifitas saat hari kerja, dengan demikian pembatasan kecepatan hanya diberlakukan untuk pengaksesan internet pada hari libur
 
 **Pembahasan:**
-
+Untuk melakukan hal itu, kita perlu mengatur ulang definisi pembatasan bandwidth di file /etc/squid/acl-bandwidth.conf. Kita perlu mendefinisikan waktu hari kerja lalu menerapkanny pada delay_access sehingga konfigurasinya akan menjadi dmeikian
+```
+acl WORK_TIME time MTWHF 08:00-17:00
+delay_pools 1
+delay_class 1 1
+delay_access 1 allow WORK_TIME
+delay_parameters 1 8000/16000
+```
 
