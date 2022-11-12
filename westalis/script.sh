@@ -40,7 +40,7 @@ subnet 10.11.3.0 netmask 255.255.255.0 {
 }
 
 host Eden {
-    hardware ethernet 86:7b:07:02:46:04;
+    hardware ethernet 72:91:d4:fa:19:93;
     fixed-address 10.11.3.13;
 }
 ' > ~/shift3/dhcpd.conf
