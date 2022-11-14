@@ -2,9 +2,6 @@
 
 Penyelesaian Soal Shift Modul 3 Jaringan Komputer 2022 <br>
 Kelompok C03
-- Aqil Ramadhan Hadiono - NRP 5025201261
-- Christhoper Marcelino Mamahit - NRP 5025201249
-- Zahra Fayyadiyati - NRP 5025201133
 
 ## Table of Contents
 * [Soal 1](#soal-1)
@@ -15,6 +12,7 @@ Kelompok C03
 * [Soal 6](#soal-6)
 * [Soal 7](#soal-7)
 * [Soal 8](#soal-8)
+* [Kendala](#kendala)
 
 ## Soal 1
 **Deskripsi:**
@@ -305,3 +303,6 @@ delay_access 1 allow WORK_TIME
 delay_parameters 1 8000/16000
 ```
 
+## Kendala
+* Kesusahan dalam mengatur access pada proxy dan adanya tabrakan antara setting permission untuk HTTP dan HTTPS
+* Pembatasan bandwith yang terkadang berjalan sesuai deskripsi soal beserta pengaturan waktu pembatasannya
