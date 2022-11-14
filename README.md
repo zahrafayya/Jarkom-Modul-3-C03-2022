@@ -2,6 +2,9 @@
 
 Penyelesaian Soal Shift Modul 3 Jaringan Komputer 2022 <br>
 Kelompok C03
+- Aqil Ramadhan Hadiono - NRP 5025201261
+- Christhoper Marcelino Mamahit - NRP 5025201249
+- Zahra Fayyadiyati - NRP 5025201133
 
 ## Table of Contents
 * [Soal 1](#soal-1)
